@@ -1,0 +1,34 @@
+/ Follow the hints of the failure messages!
+
+describe('Destructure objects', () => {
+  it('by surrounding the left-hand variable with `{}`', () => {
+    const {x} = {x: 1}; //read rules ^
+    assert.equal(x, 1);
+  });
+  describe('nested', () => {
+    it('multiple objects', () => {
+      const magic = {first: 23, second: 42};
+      const {first, second} = magic; // restructrued object to to give variable positions 
+      assert.equal(second, 42);
+    });
+    it('object and array', () => {
+      const {z:[y,x]} = {z: [23, 42]};// added variable position 
+      assert.equal(x, 42);
+    });
+    it('array and object', () => {
+      const [,[{lang}]] = [null, [{env: 'browser', lang: 'ES6'}]];// matched layers of constant
+      assert.equal(lang, 'ES6');
+    });
+  });
+  describe('interesting', () => {
+    it('missing refs become undefined', () => {
+      const {z} = {x: 1, y:2};// changed the z to a y to make z undefined
+      assert.equal(z, void 0);
+    });
+    it('destructure from builtins (string)', () => {
+      const {substr} = String(1);
+      assert.equal(substr, String.prototype.substr);// make a substring of const
+      // and add it the object of substr 
+    });
+  });
+});
