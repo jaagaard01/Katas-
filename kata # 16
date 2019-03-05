@@ -1,0 +1,33 @@
+// 16: object-literal - computed properties
+// To do: make all tests pass, leave the assert lines unchanged!
+// Follow the hints of the failure messages!
+
+describe('Object literal properties may be computed values', () => {
+  it('a computed property `x` needs to be surrounded by `[]`', () => {
+    const propertyName = 'x';
+    const obj = {[propertyName]: 1};// x is property name for x so surround it with
+    assert.equal(obj.x, 1);// an array brackets 
+  });
+  it('can also get a function assigned', () => {
+    const key = 'func';
+    const obj = {[key]() {return 'seven'}};//key becomes the function instead of an object
+    assert.equal(obj.func(), 'seven');
+  });
+  it('the key may also be the result of a function call', () => {
+    const getName = () => 'propertyName';
+    const obj = getName();{return 'seven'}//changing function ot property name 
+    assert.equal(obj.propertyName(), 'seven');
+  });
+  it('the key can also be constructed by an expression', () => {
+    const what = 'tyName';// changed this string to match property name 
+    const obj = {['proper' + what]: null};
+    assert('propertyName' in obj);
+  });
+  it('accessor keys can be computed names too', () => {
+    const obj = {
+      get ['key']() {return 1},//changed set to get to correct the function 
+      
+    };
+    assert.equal(obj.key, 1);
+  });
+});
