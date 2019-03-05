@@ -1,0 +1,27 @@
+// 13: destructuring - defaults
+// To do: make all tests pass, leave the assert lines unchanged!
+// Follow the hints of the failure messages!
+
+describe('When destructuring you can also provide default values', () => {
+  it('just assign a default value, like so `a=1`', () => {
+    const [a=1] = [];// followed notes from above 
+    assert.equal(a, 1);
+  });
+  it('for a missing value', () => {
+    const [b=2] = [];// removed other inputs so b = 2
+    assert.equal(b, 2);
+  });
+  it('in an object', () => {
+    const [a, b=2] = [{a: 1}];// added a:1 into an array 
+    assert.equal(b, 2);
+  });
+  it('if the value is undefined', () => {
+    const [{a, b=2}] = [{a: 1, b: void 0}];// set b =2 so it wouldnt be void 
+    assert.strictEqual(b, 2);
+  });
+  it('also a string works with defaults', () => {
+    const [a,b=2] = '1'; //added an a variable into the array 
+    assert.equal(a, '1');
+    assert.equal(b, 2);
+  });
+});
