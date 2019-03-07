@@ -1,0 +1,48 @@
+// 28: class - super in constructor
+// To do: make all tests pass, leave the assert lines unchanged!
+// Follow the hints of the failure messages!
+
+describe('Inside a class`s constructor `super()` can be used', () => {
+  it('`extend` a class and use `super()` to call the parent constructor', () => {
+    class A {constructor() { this.levels = 1; }}
+    class B extends A {// extended class a to b 
+      constructor() {
+        super()// added super to give accesses to this.levels then added ++
+        this.levels++;
+      }
+    }
+    assert.equal(new B().levels, 2);
+  });
+  it('`super()` may also take params', () => {
+    class A {constructor(startValue=43, addTo=1) { this.counter = startValue + addTo; }}
+    class B extends A {// changed params above to use super to make it equal to 45 
+      constructor(...args) { 
+        super();
+        this.counter++; 
+      }
+    }
+    assert.equal(new B(42, 2).counter, 45);
+  });
+  it('it is important where you place your `super()` call!', () => {
+    class A {inc() { this.countUp = 1; }}
+    class B extends A {
+      inc() {
+        super.inc();
+        this.countUp; // got rid of overide amount to utilize super from countup 
+        
+        return this.countUp;
+      }
+    }
+    assert.equal(new B().inc(), 1);
+  });
+  it('use `super.constructor` to find out if there is a parent constructor', () => {
+    class ParentClassA {constructor() {"parent"}}
+    class B extends ParentClassA {
+      constructor() {
+        super();
+        this.isTop = '' + super.constructor;// needed to change constructor letters to 
+      }// utilize the super.constructor function to make it equal at the bot 
+    }
+    assert(new B().isTop.includes('ParentClassA'), new B().isTop);
+  });
+});
