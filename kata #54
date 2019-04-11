@@ -1,0 +1,61 @@
+// 54: Object - is
+// To do: make all tests pass, leave the assert lines unchanged!
+// Follow the hints of the failure messages!
+
+describe('`Object.is()` determines whether two values are the same', function(){
+  describe('scalar values', function() {
+    it('1 is the same as 1', function() {
+      const areSame = Object.is(1, 1);// turn the ?? in to 1 wihtout a string to get them to matcg
+      assert(areSame);
+    });
+    it('int 1 is different to string "1"', function() {
+      const areSame = Object.is(1, '1'); //added .is to have them be false
+      assert(areSame === false);
+    });
+    it('strings just have to match', function() {
+      const areSame = Object.is('one', 'one');// changed two to one so strings match
+      assert(areSame);
+    });
+    it('+0 is not the same as -0', function() {
+      const areSame = false; // changed aresame to false to have the 0s not equal each other
+      assert.equal(Object.is(+0, -0), areSame);
+    });
+    it('NaN is the same as NaN', function() {
+      const number = NaN; // changed to NaN to make them true to being equal
+      assert.equal(Object.is(NaN, number), true);
+    });
+  });
+  describe('coercion, as in `==` and `===`, does NOT apply', function() {
+    it('+0 != -0', function() {
+      const coerced = +0 === -0;
+      const isSame = Object.is(0, 0); // removed the + - so they would match coerced
+      assert.equal(isSame, coerced);
+    });
+    it('empty string and `false` are not the same', function() {
+      const emptyString = '';
+      const isSame = Object.is(emptyString, emptyString);// added emptyString for object is
+      assert.equal(isSame, emptyString == false);
+    });
+    it('NaN', function() {
+      const coerced = NaN == NaN;
+      const isSame = Object.is(NaN);// removed a NaN to have them match
+      assert.equal(isSame, coerced);
+    });
+    it('NaN 0/0', function() {
+      const isSame = Object.is(NaN, 0/0); // added .is to have NAN match 0/0
+      assert.equal(isSame, true);
+    });
+  });
+  describe('complex values', function() {
+    it('`{}` is just not the same as `{}`', function() {
+      const areSame = {} == {}; // added the equals had to make each object equal to each other 
+      assert(Object.is({}, {}) === areSame);
+    });
+    it('Map', function() {
+      let map1 = new Map([[1, 'one']]);
+      let map2 = new Map([[1, 'one']]);
+      const areSame = Object.is(map1, map2); // changed to map2 cause even though values same
+      assert.equal(areSame, false);// iterators are different 
+    });
+  });
+});
